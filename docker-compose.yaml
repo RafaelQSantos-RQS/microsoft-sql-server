@@ -1,0 +1,44 @@
+name: ${PROJECT_NAME:-mssql-server}
+
+volumes:
+  mssql_data:
+    name: ${PROJECT_NAME:-mssql-server}_data
+    external: true
+
+  mssql_log:
+    name: ${PROJECT_NAME:-mssql-server}_log
+    external: true
+
+  mssql_secrets:
+    name: ${PROJECT_NAME:-mssql-server}_secrets
+    external: true
+
+networks:
+  mssql_network:
+    name: ${PROJECT_NAME:-mssql-server}_network
+    external: true
+
+services:
+  instance:
+    image: mcr.microsoft.com/mssql/server:${SQL_SERVER_TAG:-latest}
+    restart: always
+    container_name: ${PROJECT_NAME:-mssql-server}_service_instance
+    user: 0:0
+    ports:
+      - ${SQL_SERVER_PORT:-1433}:${MSSQL_TCP_PORT:-1433}
+    networks:
+      - mssql_network
+    volumes:
+      - mssql_data:/var/opt/mssql/data
+      - mssql_log:/var/opt/mssql/log
+      - mssql_secrets:/var/opt/mssql/secrets
+    environment:
+      ACCEPT_EULA: ${ACCEPT_EULA:-Y}
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-P@ssw0rd}
+      MSSQL_PID: ${MSSQL_PID:-Developer}
+      MSSQL_LCID: ${MSSQL_LCID:-1033}
+      MSSQL_COLLATION: ${MSSQL_COLLATION}
+      MSSQL_MEMORY_LIMIT_MB: ${MSSQL_MEMORY_LIMIT_MB}
+      MSSQL_TCP_PORT: ${SQL_SERVER_PORT:-1433}
+      MSSQL_AGENT_ENABLED: ${MSSQL_AGENT_ENABLED:-false}
+      TZ: ${TZ:-America/Los_Angeles}
