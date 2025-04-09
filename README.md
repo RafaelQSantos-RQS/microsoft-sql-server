@@ -1,4 +1,7 @@
-# Microsoft SQL Server (Docker)
+<div>
+    <img src="img/logo.png" alt="Microsoft SQL Server" width="25%" style="display: block; margin-left: auto; margin-right: auto;">
+    <h1 style="text-align: center;">Microsoft SQL Server (Docker)</h1>
+</div>
 O Microsoft SQL Server é um sistema de gerenciamento de banco de dados relacional (RDBMS). Aplicativos e ferramentas se conectam a uma instância ou banco de dados do SQL Server e se comunicam usando Transact-SQL (T-SQL).
 
 ## Docker
